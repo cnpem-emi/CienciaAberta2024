@@ -1,5 +1,5 @@
 from Adafruit_BBIO import PWM
-from .pin_reference import pwm
+from pin_reference import pwm
 
 class CoilDriver:
     def __init__(self, output_pin: int, duty_cycle: int, freq: int) -> None:

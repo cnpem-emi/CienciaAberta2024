@@ -1,5 +1,5 @@
 from Adafruit_BBIO import GPIO
-from .pin_reference import gpio
+from pin_reference import gpio
 
 class InputHandler:
     def __init__(self, input_pin: int) -> None:
