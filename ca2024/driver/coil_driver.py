@@ -1,10 +1,11 @@
 from Adafruit_BBIO import PWM
-from pin_reference import pwm
+from .pin_reference import pwm
+import time
 
 class CoilDriver:
     def __init__(self, output_pin: int, duty_cycle: int, freq: int) -> None:
         self.output_pin = output_pin
-        self.duty_cycle = duty_cyle
+        self.duty_cycle = duty_cycle
         self.freq = freq
 
     def drive(self) -> None:
@@ -13,6 +14,8 @@ class CoilDriver:
         """
         # @todo control pulse width size
         PWM.start(pwm.get(self.output_pin), self.duty_cycle, self.freq)
+        time.sleep(2*(1/self.freq))
+        self.clear()
 
     def clear(self) -> None:
         """
