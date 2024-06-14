@@ -12,7 +12,7 @@ class CoilDriver:
         """
             Send a square wave pulse to the output pin
         """
-        # @todo control pulse width size
+        
         PWM.start(pwm.get(self.output_pin), self.duty_cycle, self.freq)
         time.sleep(2*(1/self.freq))
         self.clear()
