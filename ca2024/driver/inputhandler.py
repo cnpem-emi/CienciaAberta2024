@@ -7,9 +7,10 @@ class InputHandler:
 
         GPIO.setup(gpio.get(self.input_pin), GPIO.IN, GPIO.PUD_DOWN)
 
-    async def read_pin(self) -> None:
+    def read_pin(self) -> None:
         """
-            Reads the input pin and waits for a rising edge.
+            Reads the input pin and waits for a rising or falling edge.
+            Returns 1 if edge detected.
         """
         if GPIO.wait_for_edge(gpio.get(self.input_pin), GPIO.BOTH) == None:
             print(GPIO.input(gpio.get(self.input_pin)))

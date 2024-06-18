@@ -3,16 +3,17 @@ from .pin_reference import pwm
 import time
 
 class CoilDriver:
-    def __init__(self, output_pin: int, duty_cycle: int, freq: int) -> None:
+    def __init__(self, output_pin: int, pulse_width: int) -> None:
         self.output_pin = output_pin
-        self.duty_cycle = duty_cycle
-        self.freq = freq
+        self.pulse_width = pulse_width
+        self.duty_cycle = 100
 
     def drive(self) -> None:
         """
             Send a square wave pulse to the output pin
         """
         
+        self.freq = __frequency()
         PWM.start(pwm.get(self.output_pin), self.duty_cycle, self.freq)
         time.sleep(2*(1/self.freq))
         self.clear()
@@ -21,9 +22,13 @@ class CoilDriver:
         """
             Change the state of the output pin to LOW
         """
+        
         PWM.stop(pwm.get(self.output_pin))
 
-    def __milli(self):
-        # Private method to calculate the pulse width from frequency and duty cycle
+    def __frequency(self) -> int:
+        # Private method to calculate the frequency from pulse width
         # Call at drive method and pass the result as parameter
-        pass
+        self.pulse_width = self.pulse_width/1000
+        freq = 1/self.pulse_width
+
+        return freq
