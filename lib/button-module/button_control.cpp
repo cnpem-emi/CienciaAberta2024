@@ -1,6 +1,6 @@
 #include "button_control.hpp"
 
-void configButton() {
+void ButtonControl::config() {
     for (int i = 0; i < numRow; i++) {
     pinMode(rowPin[i], OUTPUT);
     digitalWrite(rowPin[i], LOW);
@@ -25,7 +25,7 @@ void configButton() {
   }
 }
 
-void readButtonMatrix() {
+void ButtonControl::readButtonMatrix() {
   for (int row = 0; row < numRow; row++) {
     // Ativa a linha atual
     digitalWrite(rowPin[row], HIGH);
@@ -70,7 +70,7 @@ void readButtonMatrix() {
   }
 }
 
-void pulseGenerator(int pin, int durationPulse) {
+void ButtonControl::pulseGenerator(int pin, int durationPulse) {
   digitalWrite(pin, LOW);
   delay(durationPulse);
   digitalWrite(pin, HIGH);
