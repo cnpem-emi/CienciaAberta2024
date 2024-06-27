@@ -1,1 +1,0 @@
-Adafruit_BBIO @ git+https://github.com/adafruit/adafruit-beaglebone-io-python.git@cf306ed7f9f24111d0949dd60ac232e81241bffe
