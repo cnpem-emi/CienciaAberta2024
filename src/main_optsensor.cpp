@@ -1,5 +1,5 @@
 #include "optical_sensor.hpp"
-
+/*
 OpticalSensor sensor(2, MANUAL_MODE);
 
 void setup() {
@@ -9,3 +9,4 @@ void setup() {
 void loop() {
   sensor.read_sensor();
 }
+*/

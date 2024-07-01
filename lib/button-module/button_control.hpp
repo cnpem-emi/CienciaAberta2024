@@ -12,7 +12,6 @@ class ButtonControl {
     public:
         void config();
         void readButtonMatrix();
-        void pulseGenerator(int pin, int durationPulse); // Declaração do protótipo da função
 
     private:
         const int rowPin[3] = {25, 26, 27}; //Pinos de entrada do sinal do pushbutton
@@ -23,5 +22,7 @@ class ButtonControl {
         bool lastButtonState[numRow][numCol];  // Guarda o último estado do botão
         bool buttonStates[numRow][numCol];  // Guarda o estado atual do botão
 };
+
+bool pulseGenerator(int pin, int durationPulse); // Declaração do protótipo da função
 
 #endif // BUTTON_CONTROL_HPP_

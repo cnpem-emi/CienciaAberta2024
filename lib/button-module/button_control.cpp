@@ -55,7 +55,7 @@ void ButtonControl::readButtonMatrix() {
 
             // Calcula o índice do pino de pulso correspondente
             int pulsePinIndex = row * numCol + col;
-            pulseGenerator(pulsePin[pulsePinIndex], 100);
+            pulseGenerator(pulsePin[pulsePinIndex], 50);
 
             Serial.println("Pulso Gerado");
           }
@@ -70,8 +70,8 @@ void ButtonControl::readButtonMatrix() {
   }
 }
 
-void ButtonControl::pulseGenerator(int pin, int durationPulse) {
+bool pulseGenerator(int pin, int durationPulse) {
   digitalWrite(pin, LOW);
-  delay(durationPulse);
-  digitalWrite(pin, HIGH);
+  //delay(durationPulse);
+  //digitalWrite(pin, HIGH);
 }
