@@ -1,59 +1,52 @@
 #include "optical_sensor.hpp"
 
-int state = 0;
+int sensor_state = 0;
+int pulse_pin;
 
-OpticalSensor::OpticalSensor(int sensor_pin, int mode) {
+OpticalSensor::OpticalSensor(int sensor_pin, int sensor_output, int pulse_width, int mode) {
+    // Configure sensor input
     this->sensor_pin = sensor_pin;
     pinMode(sensor_pin, INPUT_PULLUP);
 
+    // Configure sensor output
+    this->sensor_output = sensor_output;
+    pulse_pin = this->sensor_output;
+    pinMode(sensor_output, OUTPUT);
+
+    this->pulse_width = pulse_width;
+
+    // Configure sensor mode
     this->mode = mode;
 }
 
-void OpticalSensor::read_sensor() {
-    //sensor_state = digitalRead(sensor_pin);
-    sensor_state = analogReadMilliVolts(sensor_pin);
+void OpticalSensor::loop() {
 
-    switch (mode) {
-    case MANUAL_MODE:
-        sensor_callback(sensor_state, MANUAL_MODE);
-        break;
-    
-    case AUTOMATIC_MODE:
-        sensor_callback(sensor_state, AUTOMATIC_MODE);
-        break;
+    if(mode == AUTOMATIC_MODE && sensor_state == 1) {
+        delay(this->pulse_width);
+        digitalWrite(this->sensor_output, HIGH);
+        sensor_state = 0;
     }
 }
 
 void OpticalSensor::sensor_callback(int sensor_state, int mode) {
-    // Ler button_state
-    // Iniciar timer
-    // 
-
-    //if (mode == AUTOMATIC_MODE && sensor_state >= 500) {
-    //    pulseGenerator(21, 100);
-    //    delay(50);
-    //}
-    //Serial.println(sensor_state);
+    if(mode == AUTOMATIC_MODE && sensor_state == 1) {
+        delay(this->pulse_width);
+        digitalWrite(this->sensor_output, HIGH);
+        sensor_state = 0;
+        Serial.println(sensor_state);
+    }
 }
 
 void OpticalSensor::config() {
-    //btn.config();
-    pinMode(21, OUTPUT);
-    digitalWrite(21, HIGH);
+    pinMode(this->sensor_output, OUTPUT);
+    digitalWrite(this->sensor_output, HIGH);
 
-    attachInterrupt(digitalPinToInterrupt(4), callPulse, RISING);
+    if(this->mode == AUTOMATIC_MODE) {
+        attachInterrupt(digitalPinToInterrupt(this->sensor_pin), callPulse, RISING);
+    }
 }
 
 void IRAM_ATTR callPulse() {
-    pulseGenerator(21, 100);
-    state = 1;
-    //Serial.println("Interrupt!");
-}
-
-void OpticalSensor::loop() {
-    if(state == 1) {
-        delay(50);
-        digitalWrite(21, HIGH);
-        state = 0;
-    }
+    digitalWrite(pulse_pin, LOW);
+    sensor_state = 1;
 }

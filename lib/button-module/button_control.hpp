@@ -23,6 +23,6 @@ class ButtonControl {
         bool buttonStates[numRow][numCol];  // Guarda o estado atual do botão
 };
 
-bool pulseGenerator(int pin, int durationPulse); // Declaração do protótipo da função
+bool pulseGenerator(int pin); // Declaração do protótipo da função
 
 #endif // BUTTON_CONTROL_HPP_
