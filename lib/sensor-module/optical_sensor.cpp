@@ -1,12 +1,9 @@
 #include "optical_sensor.hpp"
 
-int sensor_state = 0;
-int pulse_pin;
-
 OpticalSensor::OpticalSensor(int sensor_pin, int sensor_output, int pulse_width, int mode) {
     // Configure sensor input
     this->sensor_pin = sensor_pin;
-    pinMode(sensor_pin, INPUT_PULLUP);
+    pinMode(sensor_pin, INPUT_PULLDOWN);
 
     // Configure sensor output
     this->sensor_output = sensor_output;
@@ -20,33 +17,25 @@ OpticalSensor::OpticalSensor(int sensor_pin, int sensor_output, int pulse_width,
 }
 
 void OpticalSensor::loop() {
-
-    if(mode == AUTOMATIC_MODE && sensor_state == 1) {
+    
+    if(mode == AUTOMATIC_MODE && digitalRead(sensor_pin) == HIGH) {
         delay(this->pulse_width);
-        digitalWrite(this->sensor_output, HIGH);
-        sensor_state = 0;
+        digitalWrite(this->sensor_output, LOW);
     }
-}
 
-void OpticalSensor::sensor_callback(int sensor_state, int mode) {
-    if(mode == AUTOMATIC_MODE && sensor_state == 1) {
-        delay(this->pulse_width);
-        digitalWrite(this->sensor_output, HIGH);
-        sensor_state = 0;
-        Serial.println(sensor_state);
-    }
+    digitalWrite(SENSOR_1_OUTPUT, LOW);
+    digitalWrite(SENSOR_2_OUTPUT, LOW);
 }
 
 void OpticalSensor::config() {
     pinMode(this->sensor_output, OUTPUT);
-    digitalWrite(this->sensor_output, HIGH);
-
-    if(this->mode == AUTOMATIC_MODE) {
-        attachInterrupt(digitalPinToInterrupt(this->sensor_pin), callPulse, CHANGE);
-    }
+    digitalWrite(this->sensor_output, LOW);
 }
 
-void IRAM_ATTR callPulse() {
-    digitalWrite(pulse_pin, LOW);
-    sensor_state = 1;
+void IRAM_ATTR callPulse_1() {
+    digitalWrite(SENSOR_1_OUTPUT, HIGH);
+}
+
+void IRAM_ATTR callPulse_2() {
+    digitalWrite(SENSOR_2_OUTPUT, HIGH);
 }

@@ -5,7 +5,7 @@
 
 #define numRow  3
 #define numCol 2
-#define PIN_STATE HIGH
+#define PIN_STATE LOW
 #define DEBOUNCE_DELAY 50  // Tempo de debounce em milissegundos
 
 class ButtonControl {

@@ -8,10 +8,17 @@
 #define MANUAL_MODE 1
 #define AUTOMATIC_MODE 2
 
+#define SENSOR_1_PIN 4
+#define SENSOR_2_PIN 2
+
+#define SENSOR_1_OUTPUT 21
+#define SENSOR_2_OUTPUT 19
+
 class OpticalSensor {
     public:
         int sensor_output;
         int pulse_width;
+        int sensor_pin;
 
         // Configures the pins used for the sensor.
         OpticalSensor(int sensor_pin, int sensor_output, int pulse_width, int mode);
@@ -23,13 +30,10 @@ class OpticalSensor {
         void loop();
     
     private:
-        int sensor_pin;
         int mode;
-
-        // Callback function that depends on the operation mode of the sensor.
-        void sensor_callback(int button_state, int mode);
 };
 
-void IRAM_ATTR callPulse();
+void IRAM_ATTR callPulse_1();
+void IRAM_ATTR callPulse_2();
 
 #endif  // _OPTICAL_SENSOR_HPP_

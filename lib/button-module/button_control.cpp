@@ -74,7 +74,7 @@ void ButtonControl::readButtonMatrix() {
 }
 
 void ButtonControl::pulseGenerator(int pin) {
-  digitalWrite(pin, LOW);
-  delay(this->pulse_width);
   digitalWrite(pin, HIGH);
+  delay(this->pulse_width);
+  digitalWrite(pin, LOW);
 }
