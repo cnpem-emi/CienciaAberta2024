@@ -21,8 +21,12 @@ class SensorControl {
         int mode;
         int pulse_width;
 
+        std::vector<OpticalSensor> sensorList;
+
+        void createSensorList();
+
         OpticalSensor sensor_1 = OpticalSensor(SENSOR_1_PIN, SENSOR_1_OUTPUT, pulse_width, mode);
-        //OpticalSensor sensor_2 = OpticalSensor(SENSOR_2_PIN, SENSOR_2_OUTPUT, pulse_width, mode);
+        OpticalSensor sensor_2 = OpticalSensor(SENSOR_2_PIN, SENSOR_2_OUTPUT, pulse_width, mode);
 };
 
 #endif  // _SENSOR_CONTROL_HPP_

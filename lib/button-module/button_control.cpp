@@ -1,5 +1,9 @@
 #include "button_control.hpp"
 
+ButtonControl::ButtonControl(int pulse_width) {
+  this->pulse_width = pulse_width;
+}
+
 void ButtonControl::config() {
     for (int i = 0; i < numRow; i++) {
     pinMode(rowPin[i], OUTPUT);
@@ -56,7 +60,6 @@ void ButtonControl::readButtonMatrix() {
             // Calcula o índice do pino de pulso correspondente
             int pulsePinIndex = row * numCol + col;
             pulseGenerator(pulsePin[pulsePinIndex]);
-
             Serial.println("Pulso Gerado");
           }
         }
@@ -70,6 +73,8 @@ void ButtonControl::readButtonMatrix() {
   }
 }
 
-bool pulseGenerator(int pin) {
+void ButtonControl::pulseGenerator(int pin) {
   digitalWrite(pin, LOW);
+  delay(this->pulse_width);
+  digitalWrite(pin, HIGH);
 }

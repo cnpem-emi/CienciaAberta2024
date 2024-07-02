@@ -42,7 +42,7 @@ void OpticalSensor::config() {
     digitalWrite(this->sensor_output, HIGH);
 
     if(this->mode == AUTOMATIC_MODE) {
-        attachInterrupt(digitalPinToInterrupt(this->sensor_pin), callPulse, RISING);
+        attachInterrupt(digitalPinToInterrupt(this->sensor_pin), callPulse, CHANGE);
     }
 }
 

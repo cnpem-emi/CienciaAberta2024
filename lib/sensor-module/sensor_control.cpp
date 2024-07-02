@@ -5,6 +5,10 @@ SensorControl::SensorControl(int pulse_width, int mode) {
     this->mode = mode;
 }
 
+void SensorControl::createSensorList() {
+    
+}
+
 void SensorControl::config() {
     sensor_1.config();
     //sensor_2.config();

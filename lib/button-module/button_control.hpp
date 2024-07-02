@@ -13,7 +13,11 @@ class ButtonControl {
         void config();
         void readButtonMatrix();
 
+        ButtonControl(int pulse_width);
+
     private:
+        int pulse_width;
+
         const int rowPin[3] = {25, 26, 27}; //Pinos de entrada do sinal do pushbutton
         const int colPin[2] = {33, 32}; //Pinos de saída do sinal do pushbutton
         const int pulsePin[6] = {21, 19, 18, 5, 17, 16}; //Pinos de geração de pulso
@@ -21,8 +25,8 @@ class ButtonControl {
         unsigned long lastDebounceTime[numRow][numCol];  // Guarda o último tempo de debounce
         bool lastButtonState[numRow][numCol];  // Guarda o último estado do botão
         bool buttonStates[numRow][numCol];  // Guarda o estado atual do botão
-};
 
-bool pulseGenerator(int pin); // Declaração do protótipo da função
+        void pulseGenerator(int pin);
+};
 
 #endif // BUTTON_CONTROL_HPP_
