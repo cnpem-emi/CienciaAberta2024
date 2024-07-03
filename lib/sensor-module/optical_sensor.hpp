@@ -2,14 +2,13 @@
 #define _OPTICAL_SENSOR_HPP_
 
 #include <Arduino.h>
-#include <vector>
 #include "button_control.hpp"
 
 #define MANUAL_MODE 1
 #define AUTOMATIC_MODE 2
 
 #define SENSOR_1_PIN 4
-#define SENSOR_2_PIN 2
+#define SENSOR_2_PIN 5
 
 #define SENSOR_1_OUTPUT 21
 #define SENSOR_2_OUTPUT 19

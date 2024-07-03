@@ -10,12 +10,15 @@ void SensorControl::config() {
     sensor_2.config();
 
     if(mode == AUTOMATIC_MODE) {
-        attachInterrupt(digitalPinToInterrupt(SENSOR_1_PIN), callPulse_1, CHANGE);
-        attachInterrupt(digitalPinToInterrupt(SENSOR_2_PIN), callPulse_2, CHANGE);
+        attachInterrupt(digitalPinToInterrupt(SENSOR_1_PIN), callPulse_1, RISING);
+        attachInterrupt(digitalPinToInterrupt(SENSOR_2_PIN), callPulse_2, RISING);
     }
 }
 
 void SensorControl::loop() {
     sensor_1.loop();
     sensor_2.loop();
+    
+    digitalWrite(SENSOR_1_OUTPUT, LOW);
+    digitalWrite(SENSOR_2_OUTPUT, LOW);
 }

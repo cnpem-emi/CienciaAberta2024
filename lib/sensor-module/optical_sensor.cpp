@@ -7,7 +7,6 @@ OpticalSensor::OpticalSensor(int sensor_pin, int sensor_output, int pulse_width,
 
     // Configure sensor output
     this->sensor_output = sensor_output;
-    pulse_pin = this->sensor_output;
     pinMode(sensor_output, OUTPUT);
 
     this->pulse_width = pulse_width;
@@ -17,12 +16,11 @@ OpticalSensor::OpticalSensor(int sensor_pin, int sensor_output, int pulse_width,
 }
 
 void OpticalSensor::loop() {
-    
+
     if(mode == AUTOMATIC_MODE && digitalRead(sensor_pin) == HIGH) {
         delay(this->pulse_width);
         digitalWrite(this->sensor_output, LOW);
     }
-
     digitalWrite(SENSOR_1_OUTPUT, LOW);
     digitalWrite(SENSOR_2_OUTPUT, LOW);
 }
