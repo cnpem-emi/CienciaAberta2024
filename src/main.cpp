@@ -1,3 +1,4 @@
+/*
 //#include "optical_sensor.hpp"
 #include "button_control.hpp"
 #include "sensor_control.hpp"
@@ -24,4 +25,31 @@ void loop() {
   sensor1.loop();
   sensor2.loop();
   //sc.loop();
+}
+*/
+#include <Arduino.h>
+#include "com_port.hpp"
+
+ComPort serial;
+String json;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  serial.getInfo();
+  json = serial.sendInfo();
+  Serial.println(json);
+  /*
+  if (serial.send_data == false) {
+    serial.config();
+  }
+  else if (serial.send_data == true) {
+    serial.getInfo();
+    json = serial.sendInfo();
+    Serial.println(json);
+  }
+  */
+  delay(1);
 }
