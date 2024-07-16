@@ -29,7 +29,9 @@ void loop() {
 */
 #include <Arduino.h>
 #include "com_port.hpp"
+#include "electron_speed.hpp"
 
+extern ElectronSpeed velocity;
 ComPort serial;
 String json;
 
@@ -38,18 +40,13 @@ void setup() {
 }
 
 void loop() {
-  serial.getInfo();
-  json = serial.sendInfo();
-  Serial.println(json);
-  /*
   if (serial.send_data == false) {
     serial.config();
   }
   else if (serial.send_data == true) {
-    serial.getInfo();
+    serial.getInfo(velocity);
     json = serial.sendInfo();
     Serial.println(json);
   }
-  */
   delay(1);
 }

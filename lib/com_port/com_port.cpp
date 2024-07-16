@@ -7,14 +7,9 @@ void ComPort::config() {
     }
 }
 
-void ComPort::getInfo() {
-    doc["team name"] = "abc";
-    doc["speed"] = this->speed;
+void ComPort::getInfo(ElectronSpeed &velocity) {
+    doc["speed"] = velocity.get_speed();
     doc["laps"] = 0;
-    doc["points"] = this->points;
-
-    this->speed += 0.1;
-    this->points += 2;
 }
 
 String ComPort::sendInfo() {
