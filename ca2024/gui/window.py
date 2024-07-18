@@ -1,11 +1,11 @@
 import pygame as pg
 from .electron import Electron
+from .menu import MenuScreen
+from ..control_scheme import ControlScheme
 from ..esp_serial import ComPort
 
-usb = ComPort()
-
-class MainWindow(Electron):
-    def __init__(self, width, heigth, time_limit):
+class MainWindow(Electron, MenuScreen, ControlScheme):
+    def __init__(self, width: int, heigth: int, time_limit: int):
         super().__init__()
 
         self.WHITE = (255, 255, 255)
@@ -19,6 +19,7 @@ class MainWindow(Electron):
         self.time_limit = time_limit
         self.initial_velocity = 0
         self.initial_points = 0
+        self.init_game = False # Calls the main menu if false, starts game otherwise
 
         pg.init()
         pg.display.set_caption("Ciência Aberta 2024") # Window Name
@@ -27,9 +28,16 @@ class MainWindow(Electron):
         self.clock = pg.time.Clock()
         self.font = pg.font.Font("ca2024/gui/fonts/ARCADEPI.TTF", 30)
 
+        # Selection Menu parameters
+        self.auto_mode_t = "MODO AUTOMATICO"
+        self.manual_mode_t = "MODO MANUAL"
+        self.last_control_state = 1
+
         self.start_ticks = pg.time.get_ticks() # Initialize the countdown timer
 
-        usb.config_serial()
+        # USB conection control
+        #usb = ComPort()
+        #usb.config_serial()
 
     def loop(self):
         """
@@ -42,17 +50,26 @@ class MainWindow(Electron):
                     self.running = False
 
             self.screen.fill("black")
-            
+
             #######################
             # PUT EVERYTHING HERE #
             #######################
-            pos_x, pos_y = self.electron_movement()
-            speed, points = usb.read_serial()
-            #self.radiation(pos_x, pos_y)
-            self.get_points(points)
-            self.get_velocity(speed)
-            self.draw_electron(pos_x, pos_y)
-            self.countdown()
+            control = self.selection_menu_control()
+            
+            if self.init_game == False:
+                if control == None:
+                    control = self.last_control_state
+                self.selection_menu(control)
+            else:
+                pos_x, pos_y = self.electron_movement()
+                speed, points = usb.read_serial()
+                #self.radiation(pos_x, pos_y)
+                self.get_points(points)
+                self.get_velocity(speed)
+                self.draw_electron(pos_x, pos_y)
+                self.countdown()
+
+            self.last_control_state = control
             #######################
 
             pg.display.update()
