@@ -1,12 +1,21 @@
 import pygame as pg
 
 class ControlScheme:
-    def control_selection(self):
+    def control_selection(self, game_section: int):
         """
             Selects the apropriate control for the game section.
+                game_section = 0: selection menu
+                game_section = 1: insert team name
+                game_section = 2: run game
         """
         
-        pass
+        match game_section:
+            case 0:
+                return self.selection_menu_control()
+            case 1:
+                return self.input_text_control()
+            case 2:
+                return self.game_control()
 
     def selection_menu_control(self) -> int:
         """
@@ -22,18 +31,33 @@ class ControlScheme:
         if key[pg.K_RETURN]:
             # Call game window
             print("Init game!")
+        if key[pg.K_ESCAPE]:
+            pg.quit()
 
     def game_control(self):
+        """
+            Set the in-game control scheme.
+        """
+        
         key = pg.key.get_pressed()
 
-        if key[pg.key.K_ESCAPE]:
+        if key[pg.K_ESCAPE]:
             # Go back to selection menu
             pass
 
+    def input_text_control(self) -> str:
+        """
+            Controls keyboard typing and resturns the string typed.
+        """
 
-    def end_game_control(self):
-        """
-            Set the control scheme for the game screen.
-        """
-        
-        pass
+        key = pg.key.get_pressed()
+
+        if key[pg.event.get().unicode]:
+            self.team_name += pg.event.get().unicode
+        if key[pg.K_RETURN]:
+            print(text)
+        if key[k_BACKSPACE]:
+            self.team_name = self.team_name[:-1]
+        if key[pg.K_ESCAPE]:
+            pg.quit()
+

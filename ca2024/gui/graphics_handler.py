@@ -4,7 +4,7 @@ from .menu import MenuScreen
 from ..control_scheme import ControlScheme
 from ..esp_serial import ComPort
 
-class MainWindow(Electron, MenuScreen, ControlScheme):
+class GraphicalViewHandler(Electron, MenuScreen, ControlScheme):
     def __init__(self, width: int, heigth: int, time_limit: int):
         super().__init__()
 
@@ -20,18 +20,23 @@ class MainWindow(Electron, MenuScreen, ControlScheme):
         self.initial_velocity = 0
         self.initial_points = 0
         self.init_game = False # Calls the main menu if false, starts game otherwise
+        self.game_section = 1
 
         pg.init()
         pg.display.set_caption("Ciência Aberta 2024") # Window Name
 
+        # Add pg.FULLSCREEN later
         self.screen = pg.display.set_mode((self.width, self.heigth))
         self.clock = pg.time.Clock()
         self.font = pg.font.Font("ca2024/gui/fonts/ARCADEPI.TTF", 30)
 
         # Selection Menu parameters
+        self.title_text = "ACELERADOR MAGNETICO"
         self.auto_mode_t = "MODO AUTOMATICO"
         self.manual_mode_t = "MODO MANUAL"
         self.last_control_state = 1
+
+        self.team_name = ''
 
         self.start_ticks = pg.time.get_ticks() # Initialize the countdown timer
 
@@ -54,15 +59,15 @@ class MainWindow(Electron, MenuScreen, ControlScheme):
             #######################
             # PUT EVERYTHING HERE #
             #######################
-            control = self.selection_menu_control()
-            
+            control = self.control_selection(self.game_section)
+
             if self.init_game == False:
                 if control == None:
                     control = self.last_control_state
                 self.selection_menu(control)
             else:
                 pos_x, pos_y = self.electron_movement()
-                speed, points = usb.read_serial()
+                #speed, points = usb.read_serial()
                 #self.radiation(pos_x, pos_y)
                 self.get_points(points)
                 self.get_velocity(speed)

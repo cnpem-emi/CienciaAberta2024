@@ -9,7 +9,7 @@ class Electron:
         self.beginning = True
         self.end = False
 
-    def draw_electron(self, pos_x, pos_y):
+    def draw_electron(self, pos_x: int=0, pos_y: int=0):
         """
             Draws an electron on screen.
         """

@@ -1,10 +1,10 @@
-from ca2024.gui.window import MainWindow
+from ca2024.gui.graphics_handler import GraphicalViewHandler
 
-WIDTH = 800
-HEIGTH = 600
+WIDTH = 1024
+HEIGTH = 768
 match_time = 60
 
-main_window = MainWindow(WIDTH, HEIGTH, match_time)
+main_window = GraphicalViewHandler(WIDTH, HEIGTH, match_time)
 
 if __name__ == "__main__":
     main_window.loop()
