@@ -22,8 +22,6 @@
 #define SENSOR_5_OUTPUT 102
 #define SENSOR_6_OUTPUT 103
 
-ElectronSpeed velocity(1);
-
 class OpticalSensor {
     public:
         int sensor_output;

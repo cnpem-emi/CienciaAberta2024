@@ -1,5 +1,7 @@
 #include "optical_sensor.hpp"
 
+ElectronSpeed velocity(1);
+
 OpticalSensor::OpticalSensor(int sensor_pin, int sensor_output, int pulse_width, int mode) {
     // Configure sensor input
     this->sensor_pin = sensor_pin;
