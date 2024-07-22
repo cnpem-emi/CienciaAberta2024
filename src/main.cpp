@@ -5,7 +5,7 @@
 extern ElectronSpeed velocity;
 
 OpticalSensor sensor1(SENSOR_1_PIN, SENSOR_1_OUTPUT, 20, AUTOMATIC_MODE);
-//OpticalSensor sensor2(SENSOR_2_PIN, SENSOR_2_OUTPUT, 20, AUTOMATIC_MODE);
+//OpticalSensor sensor2(SENSOR_2_PIN, SENSOR_2_OUTPUT, 10, AUTOMATIC_MODE);
 
 //ButtonControl btn(50);
 
