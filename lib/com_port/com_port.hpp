@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include <ArduinoJson.h>
-#include "electron_speed.hpp"
 
 class ComPort {
     public:
@@ -11,7 +10,7 @@ class ComPort {
         
         void config();
 
-        void getInfo(ElectronSpeed &velocity);
+        void getInfo(float speed);
 
         String sendInfo();
 

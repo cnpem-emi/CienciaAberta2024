@@ -7,8 +7,8 @@ void ComPort::config() {
     }
 }
 
-void ComPort::getInfo(ElectronSpeed &velocity) {
-    doc["speed"] = velocity.get_speed();
+void ComPort::getInfo(float speed) {
+    doc["speed"] = speed;
     doc["laps"] = 0;
 }
 

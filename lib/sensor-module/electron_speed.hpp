@@ -5,7 +5,9 @@
 
 class ElectronSpeed {
     public:
-        float speed;
+        float speed = 0;
+        float last_time = 0;
+        int last_sensor_id = 0;
 
         void get_time(int sensor_id);
 
@@ -14,8 +16,6 @@ class ElectronSpeed {
         ElectronSpeed(float radius);
 
     private:
-        float last_time = 0;
-        int last_sensor_id = 0;
         float distance = 0;
 
 };

@@ -10,7 +10,7 @@
 
 #define SENSOR_1_PIN 4
 #define SENSOR_2_PIN 5
-#define SENSOR_3_PIN 6
+#define SENSOR_3_PIN 2
 #define SENSOR_4_PIN 7
 #define SENSOR_5_PIN 8
 #define SENSOR_6_PIN 9
@@ -27,6 +27,7 @@ class OpticalSensor {
         int sensor_output;
         int pulse_width;
         int sensor_pin;
+        bool measure_speed = false;
 
         // Configures the pins used for the sensor.
         OpticalSensor(int sensor_pin, int sensor_output, int pulse_width, int mode);
