@@ -3,10 +3,11 @@ import pygame as pg
 class ControlScheme:
     def control_selection(self, game_section: int):
         """
-            Selects the apropriate control for the game section.
+            Selects the apropriate control settings for the game section.
                 game_section = 0: selection menu
                 game_section = 1: insert team name
                 game_section = 2: game running
+                game_section = 3: scoreboard
         """
         
         match game_section:
@@ -14,7 +15,7 @@ class ControlScheme:
                 return self.selection_menu_control()
             case 1:
                 return self.input_text_control()
-            case 2:
+            case 2 | 3:
                 return self.game_control()
 
     def selection_menu_control(self) -> int:
@@ -43,6 +44,7 @@ class ControlScheme:
 
         if key[pg.K_ESCAPE]:
             # Go back to selection menu
+            print("Return to main menu!")
             pass
 
     def input_text_control(self) -> str:

@@ -1,10 +1,11 @@
 import pygame as pg
 from .electron import Electron
 from .menu import MenuScreen
+from .scoreboard import ScoreBoard
 from ..control_scheme import ControlScheme
 from ..esp_serial import ComPort
 
-class GraphicalViewHandler(Electron, MenuScreen, ControlScheme):
+class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
     def __init__(self, width: int, heigth: int, time_limit: int):
         super().__init__()
 
@@ -19,7 +20,7 @@ class GraphicalViewHandler(Electron, MenuScreen, ControlScheme):
         self.time_limit = time_limit
         self.initial_velocity = 0
         self.initial_points = 0
-        self.game_section = 2
+        self.game_section = 3
 
         pg.init()
         pg.display.set_caption("Ciência Aberta 2024") # Window Name
@@ -38,6 +39,9 @@ class GraphicalViewHandler(Electron, MenuScreen, ControlScheme):
         self.section_text = "DIGITE O NOME DO TIME:"
         self.enalbe_keyboard = False
         self.team_name = ''
+
+        self.scoreboard_text = "PONUTACAO"
+        self.score_text = ''
 
         self.start_ticks = pg.time.get_ticks() # Initialize the countdown timer
 
@@ -80,6 +84,8 @@ class GraphicalViewHandler(Electron, MenuScreen, ControlScheme):
                 self.get_velocity(speed)
                 self.draw_electron(pos_x, pos_y)
                 self.countdown()
+            elif self.game_section == 3:
+                self.show_score()
 
             self.last_control_state = control
             #######################

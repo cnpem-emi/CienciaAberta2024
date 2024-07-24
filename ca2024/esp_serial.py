@@ -12,7 +12,7 @@ class ComPort:
         """
 
         data = b'1'
-        print("Trying to connect with the ESP32...")
+        print("Trying to connect to the ESP32...")
         
         self.device.write(data)
         sleep(0.1)
