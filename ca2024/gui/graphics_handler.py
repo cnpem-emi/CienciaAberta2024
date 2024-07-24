@@ -19,8 +19,7 @@ class GraphicalViewHandler(Electron, MenuScreen, ControlScheme):
         self.time_limit = time_limit
         self.initial_velocity = 0
         self.initial_points = 0
-        self.init_game = False # Calls the main menu if false, starts game otherwise
-        self.game_section = 1
+        self.game_section = 2
 
         pg.init()
         pg.display.set_caption("Ciência Aberta 2024") # Window Name
@@ -34,8 +33,10 @@ class GraphicalViewHandler(Electron, MenuScreen, ControlScheme):
         self.title_text = "ACELERADOR MAGNETICO"
         self.auto_mode_t = "MODO AUTOMATICO"
         self.manual_mode_t = "MODO MANUAL"
-        self.last_control_state = 1
+        self.last_control_state = 1 # Menu position (1 or 2)
 
+        self.section_text = "DIGITE O NOME DO TIME:"
+        self.enalbe_keyboard = False
         self.team_name = ''
 
         self.start_ticks = pg.time.get_ticks() # Initialize the countdown timer
@@ -53,6 +54,8 @@ class GraphicalViewHandler(Electron, MenuScreen, ControlScheme):
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     self.running = False
+                elif event.type == pg.KEYDOWN and self.enalbe_keyboard == True:
+                    self.team_name += event.unicode
 
             self.screen.fill("black")
 
@@ -61,11 +64,15 @@ class GraphicalViewHandler(Electron, MenuScreen, ControlScheme):
             #######################
             control = self.control_selection(self.game_section)
 
-            if self.init_game == False:
+            if self.game_section == 0:
                 if control == None:
                     control = self.last_control_state
                 self.selection_menu(control)
-            else:
+            elif self.game_section == 1:
+                self.team_name_menu()
+            elif self.game_section == 2:
+                points = 0
+                speed = 0
                 pos_x, pos_y = self.electron_movement()
                 #speed, points = usb.read_serial()
                 #self.radiation(pos_x, pos_y)
@@ -89,7 +96,6 @@ class GraphicalViewHandler(Electron, MenuScreen, ControlScheme):
 
         position = (self.width/2, self.heigth/5)
 
-        #seconds = (pg.time.get_ticks() - self.start_ticks)/1000
         seconds = self.time_limit - (pg.time.get_ticks() - self.start_ticks)/1000
         seconds = str(round(seconds, 1))
         
@@ -103,7 +109,6 @@ class GraphicalViewHandler(Electron, MenuScreen, ControlScheme):
     def get_velocity(self, velocity):
         """
             Shows the particle velocity on screen.
-            @TODO calculate the velocity based on the sensor's activation sequence.
         """
 
         position = (self.width/2, 4*self.heigth/5)

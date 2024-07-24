@@ -6,7 +6,7 @@ class ControlScheme:
             Selects the apropriate control for the game section.
                 game_section = 0: selection menu
                 game_section = 1: insert team name
-                game_section = 2: run game
+                game_section = 2: game running
         """
         
         match game_section:
@@ -50,14 +50,14 @@ class ControlScheme:
             Controls keyboard typing and resturns the string typed.
         """
 
+        self.enalbe_keyboard = True        
         key = pg.key.get_pressed()
 
-        if key[pg.event.get().unicode]:
-            self.team_name += pg.event.get().unicode
         if key[pg.K_RETURN]:
-            print(text)
-        if key[k_BACKSPACE]:
+            self.enalbe_keyboard = False
+            print(self.team_name)
+            # Run game
+        if key[pg.K_BACKSPACE]:
             self.team_name = self.team_name[:-1]
         if key[pg.K_ESCAPE]:
             pg.quit()
-

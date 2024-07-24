@@ -24,8 +24,10 @@ class MenuScreen:
 
         auto_text_rect = auto_text.get_rect()
         auto_text_rect.center = position_auto
+        
         manual_text_rect = manual_text.get_rect()
         manual_text_rect.center = position_manual
+        
         title_text_rect = title_text.get_rect()
         title_text_rect.center = position_title
 
@@ -62,4 +64,23 @@ class MenuScreen:
             Calls a menu with text input to write the team name.
         """
         
-        pass
+        self.game_section = 1
+
+        self.font = pg.font.Font("ca2024/gui/fonts/ARCADEPI.TTF", 50)
+        position_section_text = (self.width/2, self.heigth/3)
+        position_team_name = (self.width/8, self.heigth/2)
+
+        section_text = self.font.render(self.section_text, True, self.WHITE)
+
+        section_text_rect = section_text.get_rect()
+        section_text_rect.center = position_section_text
+
+        if len(self.team_name) <= 19:
+            txt_surface = self.font.render(self.team_name.upper(), True, self.WHITE)
+
+            return self.screen.blit(section_text, section_text_rect), self.screen.blit(txt_surface, position_team_name)
+        else:
+            self.team_name = self.team_name[:-1]
+            txt_surface = self.font.render(self.team_name.upper(), True, self.WHITE)
+
+            return self.screen.blit(section_text, section_text_rect), self.screen.blit(txt_surface, position_team_name)
