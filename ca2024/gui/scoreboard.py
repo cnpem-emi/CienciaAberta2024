@@ -20,17 +20,15 @@ class ScoreBoard(DataIO):
     def write_score(self, team_name: str, max_speed: float, points: int):
         """
             Write the match score in the CSV file.
-            @TODO Test this funciton.
         """
         
-        row = [team_name, max_speed, points]
+        row = [team_name.upper(), max_speed, points]
         
         return self.write_file(row)
 
     def load_score(self):
         """
             Reads the score points from the CSV file.
-            @TODO organize by order of points.
         """
 
         score = self.read_file()
@@ -38,16 +36,19 @@ class ScoreBoard(DataIO):
 
         heigth = self.heigth/3
         for row in ordered_score:
+            if heigth > self.heigth/1.1:
+                break
+
             self.speed_text = row[1] + " m/s"
 
-            self.name_text = row[0]    
+            self.name_text = row[0]
             self.points_text = row[2]
 
             position_t_name_text = (self.width/7, heigth)
             position_t_speed_text = (self.width/2, heigth)
             position_t_points_text = (self.width/1.2, heigth)
 
-            name_text = self.font.render(self.name_text, True, self.WHITE)
+            name_text = self.font.render(self.name_text[:-1].upper(), True, self.WHITE)
             speed_text = self.font.render(self.speed_text, True, self.WHITE)
             points_text = self.font.render(self.points_text, True, self.WHITE)
 

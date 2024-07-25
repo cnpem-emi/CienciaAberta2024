@@ -21,8 +21,8 @@ class DataIO:
         """
             Writes data on the csv file.
         """
-
-        with open('ca2024/data/score.csv', 'a+') as csvfile:
-            csvwriter = csv.writer(csvfile)
+        
+        with open('ca2024/data/score.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+            csvwriter = csv.writer(csvfile, quoting=csv.QUOTE_MINIMAL)
             csvwriter.writerow(row)
 

@@ -1,8 +1,8 @@
 from ca2024.gui.graphics_handler import GraphicalViewHandler
 
-WIDTH = 800
-HEIGTH = 600
-match_time = 60
+WIDTH = 1280
+HEIGTH = 720
+match_time = 10
 
 main_window = GraphicalViewHandler(WIDTH, HEIGTH, match_time)
 

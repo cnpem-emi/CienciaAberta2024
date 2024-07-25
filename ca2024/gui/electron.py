@@ -9,6 +9,10 @@ class Electron:
         self.beginning = True
         self.end = False
 
+        self.speed = 0
+        self.points = 0
+        self.max_speed = 0
+
     def draw_electron(self, pos_x: int=0, pos_y: int=0):
         """
             Draws an electron on screen.
@@ -54,3 +58,12 @@ class Electron:
         """
         
         pg.draw.circle(self.screen, (255, 40, 40), (pos_x, pos_y), 50)
+
+    def max_speed(self, speed):
+        """
+            Gets the maximum speed achieved on the match.
+        """
+
+        if speed >= self.max_speed:
+            self.max_speed = speed
+

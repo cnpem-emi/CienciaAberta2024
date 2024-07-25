@@ -10,6 +10,10 @@ class MenuScreen:
             Create the selection menu screen.
         """
 
+        self.points = 0 # Reset points
+        self.speed = 0 # Reset speed
+        self.max_peed = 0 # Reset max speed
+
         self.screen.fill("black")
 
         position_title = (self.width/2, self.heigth/5)

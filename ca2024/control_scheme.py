@@ -1,4 +1,5 @@
 import pygame as pg
+from time import sleep
 
 class ControlScheme:
     def control_selection(self, game_section: int):
@@ -30,8 +31,10 @@ class ControlScheme:
         if key[pg.K_DOWN]:
             return 2
         if key[pg.K_RETURN]:
-            # Call game window
-            print("Init game!")
+            # Call team name window
+            # Send bit to microcontroller to select operation mode based on the position of the cursor
+            self.game_section = 1
+            sleep(0.1)
         if key[pg.K_ESCAPE]:
             pg.quit()
 
@@ -44,8 +47,9 @@ class ControlScheme:
 
         if key[pg.K_ESCAPE]:
             # Go back to selection menu
-            print("Return to main menu!")
-            pass
+            self.game_section = 0 # Return to main menu
+            self.team_name = ''
+            sleep(0.5)
 
     def input_text_control(self) -> str:
         """
@@ -58,8 +62,11 @@ class ControlScheme:
         if key[pg.K_RETURN]:
             self.enalbe_keyboard = False
             print(self.team_name)
-            # Run game
+            self.game_section = 2 # Run game
+            self.start_ticks = pg.time.get_ticks()
         if key[pg.K_BACKSPACE]:
-            self.team_name = self.team_name[:-1]
+            self.team_name = self.team_name[:-1] # Delete last character
+            sleep(0.05)
         if key[pg.K_ESCAPE]:
-            pg.quit()
+            self.game_section = 0 # Return to main menu
+            sleep(0.5)

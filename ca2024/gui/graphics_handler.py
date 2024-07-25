@@ -1,4 +1,5 @@
 import pygame as pg
+from time import sleep
 from .electron import Electron
 from .menu import MenuScreen
 from .scoreboard import ScoreBoard
@@ -20,7 +21,7 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         self.time_limit = time_limit
         self.initial_velocity = 0
         self.initial_points = 0
-        self.game_section = 3
+        self.game_section = 0
 
         pg.init()
         pg.display.set_caption("Ciência Aberta 2024") # Window Name
@@ -60,6 +61,7 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
                     self.running = False
                 elif event.type == pg.KEYDOWN and self.enalbe_keyboard == True:
                     self.team_name += event.unicode
+                    sleep(0.01)
 
             self.screen.fill("black")
 
@@ -75,13 +77,11 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
             elif self.game_section == 1:
                 self.team_name_menu()
             elif self.game_section == 2:
-                points = 0
-                speed = 0
                 pos_x, pos_y = self.electron_movement()
-                #speed, points = usb.read_serial()
+                #self.speed, self.points = usb.read_serial()
                 #self.radiation(pos_x, pos_y)
-                self.get_points(points)
-                self.get_velocity(speed)
+                self.get_points(self.points)
+                self.get_velocity(self.speed)
                 self.draw_electron(pos_x, pos_y)
                 self.countdown()
             elif self.game_section == 3:
@@ -110,7 +110,12 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         text_rect = text.get_rect()
         text_rect.center = position
 
-        return self.screen.blit(text, text_rect)
+        if float(seconds) <= 0:
+            self.write_score(self.team_name, self.speed, self.points)
+            self.game_section = 3
+            return self.game_section
+        else:
+            return self.screen.blit(text, text_rect)
     
     def get_velocity(self, velocity):
         """
