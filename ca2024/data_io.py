@@ -1,7 +1,7 @@
 import csv
 
 class DataIO:
-    def read_file(self):
+    def read_file(self) -> list:
         """
             Reads the CSV file and returns the obtained data.
         """
@@ -15,6 +15,8 @@ class DataIO:
             for row in csvreader:
                 data.append(row)
 
+            csvfile.close()
+
             return data
 
     def write_file(self, row: list):
@@ -22,7 +24,7 @@ class DataIO:
             Writes data on the csv file.
         """
         
-        with open('ca2024/data/score.csv', 'a+', newline='', encoding='utf-8') as csvfile:
-            csvwriter = csv.writer(csvfile, quoting=csv.QUOTE_MINIMAL)
+        with open('ca2024/data/score.csv', 'a+') as csvfile:
+            csvwriter = csv.writer(csvfile)
             csvwriter.writerow(row)
 

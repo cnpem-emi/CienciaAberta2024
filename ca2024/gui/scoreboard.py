@@ -20,8 +20,16 @@ class ScoreBoard(DataIO):
     def write_score(self, team_name: str, max_speed: float, points: int):
         """
             Write the match score in the CSV file.
+            @TODO Create a team name with a random number if no name is inserted.
         """
         
+        if not team_name.strip():
+            data = self.read_file()
+            team_number = str(len(data))
+
+            team_name = f"Equipe {team_number}"
+
+
         row = [team_name.upper(), max_speed, points]
         
         return self.write_file(row)
