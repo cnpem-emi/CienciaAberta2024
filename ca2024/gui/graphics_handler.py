@@ -40,7 +40,7 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         self.enalbe_keyboard = False
         self.team_name = ''
 
-        self.scoreboard_text = "PONUTACAO"
+        self.scoreboard_text = "PONTUACAO"
         self.score_text = ''
 
         self.start_ticks = pg.time.get_ticks() # Initialize the countdown timer

@@ -34,15 +34,10 @@ class ScoreBoard(DataIO):
         """
 
         score = self.read_file()
-        #print(score[2][:])
+        ordered_score = self._order_score(score[1:])
 
         heigth = self.heigth/3
-        for row in score[1:]:
-            if score.index(row) == 0:
-                # heigth = self.heigth/4
-                # self.speed_text = row[1]
-                pass
-            
+        for row in ordered_score:
             self.speed_text = row[1] + " m/s"
 
             self.name_text = row[0]    
@@ -66,4 +61,11 @@ class ScoreBoard(DataIO):
             heigth += self.heigth/9
 
             self.screen.blit(name_text, name_text_rect), self.screen.blit(speed_text, speed_text_rect), self.screen.blit(points_text, points_text_rect)
+
+    def _order_score(self, score: list) -> list:
+        """
+            Orders the score list by points.
+        """
+        
+        return sorted(score, key=lambda x: int(x[-1]), reverse=True)
 
