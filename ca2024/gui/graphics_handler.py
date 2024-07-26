@@ -1,6 +1,7 @@
 import pygame as pg
 from time import sleep
 from .electron import Electron
+from .photon import Photon
 from .menu import MenuScreen
 from .scoreboard import ScoreBoard
 from ..control_scheme import ControlScheme
@@ -44,6 +45,9 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         self.scoreboard_text = "PONTUACAO"
         self.score_text = ''
 
+        # Photons
+        self.p1 = Photon(self.screen, self.width, self.heigth)
+
         self.start_ticks = pg.time.get_ticks() # Initialize the countdown timer
 
         # USB conection control
@@ -74,17 +78,21 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
                 if control == None:
                     control = self.last_control_state
                 self.selection_menu(control)
+
             elif self.game_section == 1:
                 self.team_name_menu()
+
             elif self.game_section == 2:
-                pos_x, pos_y = self.electron_movement()
                 #self.speed, self.points = usb.read_serial()
                 #self.radiation(pos_x, pos_y)
-                self.draw_photon(0, pos_x, pos_y)
                 self.get_points(self.points)
                 self.get_velocity(self.speed)
-                self.draw_electron(pos_x, pos_y)
+                electron_x, electron_y = self.electron_movement()
+                self.draw_electron(electron_x, electron_y)
+                photon_x, photon_y = self.p1.photon_movement()
+                self.p1.draw_photon()
                 self.countdown()
+
             elif self.game_section == 3:
                 self.show_score()
 
