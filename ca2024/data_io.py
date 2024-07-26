@@ -10,7 +10,6 @@ class DataIO:
 
         with open('ca2024/data/score.csv', 'r') as csvfile:
             csvreader = csv.reader(csvfile)
-            #fields = next(csvreader)
 
             for row in csvreader:
                 data.append(row)

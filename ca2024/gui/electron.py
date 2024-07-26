@@ -52,14 +52,7 @@ class Electron:
 
         return pos_x, pos_y
 
-    def radiation(self, pos_x, pos_y):
-        """
-            Makes a cloud of light appear around the electron.
-        """
-        
-        pg.draw.circle(self.screen, (255, 40, 40), (pos_x, pos_y), 50)
-
-    def max_speed(self, speed):
+    def max_speed(self, speed: float) -> float:
         """
             Gets the maximum speed achieved on the match.
         """
@@ -67,3 +60,37 @@ class Electron:
         if speed >= self.max_speed:
             self.max_speed = speed
 
+        return self.max_speed
+
+    def radiation(self, pos_x: float, pos_y: float):
+        """
+            Makes a cloud of light appear around the electron.
+        """
+        
+        pg.draw.circle(self.screen, (255, 40, 40), (pos_x, pos_y), 50)
+
+    def draw_photon(self, speed: float, pos_x: float, pos_y:float):
+        """
+            Draws photons emmited by the electron when the speed is increased.
+        """
+        
+        PHOTON_COLOR = (245, 184, 71)
+        photon_position = (pos_x+100, pos_y+100)
+        gamma_img = pg.image.load('ca2024/gui/img/gamma.png').convert()
+        
+        scale = 0.12
+        img_size = gamma_img.get_size()
+        img_size = (img_size[0]*scale, img_size[1]*scale)
+        gamma_img = pg.transform.scale(gamma_img, img_size)
+
+        gamma_rect = gamma_img.get_rect()
+        gamma_rect.center = photon_position
+
+        return pg.draw.circle(self.screen, PHOTON_COLOR, photon_position, 20), self.screen.blit(gamma_img, gamma_rect)
+
+    def photon_movement(self):
+        """
+            Defines the way that the photons move.
+        """
+
+        pass

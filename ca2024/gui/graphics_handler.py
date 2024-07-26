@@ -80,6 +80,7 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
                 pos_x, pos_y = self.electron_movement()
                 #self.speed, self.points = usb.read_serial()
                 #self.radiation(pos_x, pos_y)
+                self.draw_photon(0, pos_x, pos_y)
                 self.get_points(self.points)
                 self.get_velocity(self.speed)
                 self.draw_electron(pos_x, pos_y)

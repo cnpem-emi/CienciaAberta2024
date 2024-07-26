@@ -27,8 +27,7 @@ class ScoreBoard(DataIO):
             data = self.read_file()
             team_number = str(len(data))
 
-            team_name = f"Equipe {team_number}"
-
+            team_name = f"Equipe {team_number}\n"
 
         row = [team_name.upper(), max_speed, points]
         
@@ -40,6 +39,7 @@ class ScoreBoard(DataIO):
         """
 
         score = self.read_file()
+        score = list(filter(None, score))
         ordered_score = self._order_score(score[1:])
 
         heigth = self.heigth/3
