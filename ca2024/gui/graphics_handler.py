@@ -46,7 +46,7 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         self.score_text = ''
 
         # Photons
-        self.p1 = Photon(self.screen, self.width, self.heigth)
+        self.p1 = Photon(self.screen, self.width, self.heigth, -2)
 
         self.start_ticks = pg.time.get_ticks() # Initialize the countdown timer
 
@@ -74,14 +74,17 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
             #######################
             control = self.control_selection(self.game_section)
 
+            # Main menu
             if self.game_section == 0:
                 if control == None:
                     control = self.last_control_state
                 self.selection_menu(control)
 
+            # Team name input menu
             elif self.game_section == 1:
                 self.team_name_menu()
 
+            # Game running
             elif self.game_section == 2:
                 #self.speed, self.points = usb.read_serial()
                 #self.radiation(pos_x, pos_y)
@@ -89,10 +92,13 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
                 self.get_velocity(self.speed)
                 electron_x, electron_y = self.electron_movement()
                 self.draw_electron(electron_x, electron_y)
-                photon_x, photon_y = self.p1.photon_movement()
+
+                # Draw photons if the electron's speed increase
                 self.p1.draw_photon()
+
                 self.countdown()
 
+            # Scoreboard
             elif self.game_section == 3:
                 self.show_score()
 
