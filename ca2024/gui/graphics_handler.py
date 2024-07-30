@@ -82,6 +82,7 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
 
             # Main menu
             if self.game_section == 0:
+                self.photon_list = []
                 if control == None:
                     control = self.last_control_state
                 self.selection_menu(control)
@@ -193,12 +194,11 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         """
         
         chance_of_showing = randint(1, 50)
-        chance_of_showing += round(1.5*speed)
+        chance_of_showing += round(2*speed)
 
-        if chance_of_showing > 50:
-            for n_of_photons in range(0, 1):
-                p = Photon(self.screen, self.width, self.heigth)
-                self.photon_list.append(p)
+        if chance_of_showing > 50 and len(self.photon_list) < 30:
+            p = Photon(self.screen, self.width, self.heigth)
+            self.photon_list.append(p)
             
         return self.photon_list
 
