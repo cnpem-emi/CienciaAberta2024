@@ -21,8 +21,9 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         # Main loop attributes
         self.running = True
         self.time_limit = time_limit
-        self.initial_velocity = 0
-        self.initial_points = 0
+        self.speed = 0
+        self.laps = 1
+        self.points = 0
         self.game_section = 0
 
         pg.init()
@@ -49,9 +50,9 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         # Photons
         # self.p1 = Photon(self.screen, self.width, self.heigth)
         self.photon_list = []
-        for n_of_photons in range(0, randint(1, 10)):
-            p = Photon(self.screen, self.width, self.heigth)
-            self.photon_list.append(p)
+        # for n_of_photons in range(0, randint(1, 10)):
+        #     p = Photon(self.screen, self.width, self.heigth)
+        #     self.photon_list.append(p)
 
         self.start_ticks = pg.time.get_ticks() # Initialize the countdown timer
 
@@ -91,22 +92,28 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
 
             # Game running
             elif self.game_section == 2:
-                #self.speed, self.points = usb.read_serial()
-                #self.radiation(pos_x, pos_y)
-                self.get_points(self.points)
+                #self.speed, self.laps = usb.read_serial()
+                self.get_points(self.speed, self.laps)
                 self.get_velocity(self.speed)
-                electron_x, electron_y = self.electron_movement()
+                electron_x, electron_y = self.electron_movement(self.speed)
                 self.draw_electron(electron_x, electron_y)
 
-                # Draw photons if the electron's speed increase
-                #self.p1.draw_photon()
+                # Draw photons as the electron's speed increase
+                self.show_photons(self.speed)
 
                 for p_index in range(len(self.photon_list)):
-                    self.photon_list[p_index].photon_loop(self.speed)
-                #     self.photon_list[p_index].draw_photon()
+                    self.photon_list[p_index].draw_photon()
+
+                self.photon_list = [photon for photon in self.photon_list if 
+                    not (photon.photon_x >= self.width or 
+                         photon.photon_x <= -self.width or 
+                         photon.photon_y >= self.heigth or 
+                         photon.photon_y <= -self.heigth)]
 
                 self.countdown()
-                self.speed += 0.01
+
+                if self.speed < 4:
+                    self.speed += 0.01
 
             # Scoreboard
             elif self.game_section == 3:
@@ -142,16 +149,13 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         else:
             return self.screen.blit(text, text_rect)
     
-    def get_velocity(self, velocity):
+    def get_velocity(self, velocity: float):
         """
             Shows the particle velocity on screen.
         """
 
         position = (self.width/2, 4*self.heigth/5)
 
-        # Calculate the velocity
-
-        #velocity = self.initial_velocity # Dummy variable
         velocity = str(round(velocity, 1)) + " m/s"
 
         self.font = pg.font.Font("ca2024/gui/fonts/ARCADEPI.TTF", 40)
@@ -161,7 +165,7 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
 
         return self.screen.blit(text, text_rect)
 
-    def get_points(self, points):
+    def get_points(self, speed: float, laps: int):
         """
             Shows the team points on screen.
         """
@@ -169,6 +173,9 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         position = (5*self.width/6, self.heigth/5)
 
         # Calculate the points
+        points = 100*laps*speed
+        points = int(points)
+        self.points = points
 
         #points = self.initial_points # Dummy variable
         points = str(points) + " PTS"
@@ -178,4 +185,20 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         text_rect = text.get_rect()
         text_rect.center = position
 
-        return self.screen.blit(text, text_rect)
+        return self.points, self.screen.blit(text, text_rect)
+
+    def show_photons(self, speed: float) -> list:
+        """
+            Instatiate a random number of photons depending on the speed of the electron.
+        """
+        
+        chance_of_showing = randint(1, 50)
+        chance_of_showing += round(1.5*speed)
+
+        if chance_of_showing > 50:
+            for n_of_photons in range(0, 1):
+                p = Photon(self.screen, self.width, self.heigth)
+                self.photon_list.append(p)
+            
+        return self.photon_list
+

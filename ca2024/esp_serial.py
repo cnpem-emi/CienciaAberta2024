@@ -39,7 +39,6 @@ class ComPort:
     def read_serial(self) -> dict:
         """
             Reads the data received from serial port.
-            @TODO Get all the JSON variables.
         """
 
         message = self.device.readline().decode('utf-8').rstrip()
@@ -47,7 +46,7 @@ class ComPort:
         if message:
             try:
                 json_msg = json.loads(message)
-                return json_msg["speed"], json_msg["points"]
+                return json_msg["speed"], json_msg["laps"]
 
             except json.JSONDecodeError as e:
                 print(f'Error decoding JSON: {e}')

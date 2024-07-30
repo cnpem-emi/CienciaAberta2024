@@ -29,7 +29,7 @@ class ScoreBoard(DataIO):
 
             team_name = f"Equipe {team_number}\n"
 
-        row = [team_name.upper(), max_speed, points]
+        row = [team_name.upper(), round(float(max_speed), 2), int(points)]
         
         return self.write_file(row)
 

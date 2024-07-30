@@ -11,13 +11,13 @@ class Photon:
         self.screen = screen
         self.width = width
         self.heigth = heigth
-        
+
         self.index_p = 0
         self.photon_x = self.width/2
         self.photon_y = 0
         self.photon_position_y = linspace(-pi/2, pi/2, 10)
         self.random_x = randint(-1, 2)
-        self.random_y = randint(-8, 8)
+        self.random_y = randint(-10, 10)
     
     def draw_photon(self):
         """
@@ -67,11 +67,3 @@ class Photon:
         self.photon_y += self.random_y
 
         return self.photon_x, float(pos_y)
-    
-    def photon_loop(self, speed: float):
-        """
-            Creates a photon depending on the speed of the electron.
-        """
-
-        if speed >= 1:
-            self.draw_photon()

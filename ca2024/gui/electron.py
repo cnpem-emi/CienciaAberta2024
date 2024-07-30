@@ -31,7 +31,7 @@ class Electron():
     
         return pg.draw.circle(self.screen, ELECTRON_COLOR, position, 30), self.screen.blit(text, text_rect)
 
-    def electron_movement(self) -> int:
+    def electron_movement(self, speed: float=0) -> int:
         """
             Makes the electron move for a few pixels.
         """
@@ -39,7 +39,10 @@ class Electron():
         pos_x = self.width/2
         pos_y = self.heigth/2
 
-        pos_y += 10*self.electron_position[self.index_e]
+        if speed > 5:
+            speed = 5
+        amplitude = (1+2*speed)*10 # Verify the optimal amplitude
+        pos_y += amplitude*self.electron_position[self.index_e]
 
         if self.beginning_e == True:
             self.index_e += 1
