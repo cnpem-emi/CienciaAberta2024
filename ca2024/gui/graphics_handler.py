@@ -1,5 +1,6 @@
 import pygame as pg
 from time import sleep
+from random import randint
 from .electron import Electron
 from .photon import Photon
 from .menu import MenuScreen
@@ -46,7 +47,11 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         self.score_text = ''
 
         # Photons
-        self.p1 = Photon(self.screen, self.width, self.heigth, -2)
+        # self.p1 = Photon(self.screen, self.width, self.heigth)
+        self.photon_list = []
+        for n_of_photons in range(0, randint(1, 10)):
+            p = Photon(self.screen, self.width, self.heigth)
+            self.photon_list.append(p)
 
         self.start_ticks = pg.time.get_ticks() # Initialize the countdown timer
 
@@ -94,9 +99,14 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
                 self.draw_electron(electron_x, electron_y)
 
                 # Draw photons if the electron's speed increase
-                self.p1.draw_photon()
+                #self.p1.draw_photon()
+
+                for p_index in range(len(self.photon_list)):
+                    self.photon_list[p_index].photon_loop(self.speed)
+                #     self.photon_list[p_index].draw_photon()
 
                 self.countdown()
+                self.speed += 0.01
 
             # Scoreboard
             elif self.game_section == 3:

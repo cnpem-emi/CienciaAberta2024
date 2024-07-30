@@ -1,8 +1,9 @@
 import pygame as pg
-from numpy import linspace, pi, sin, deg2rad
+from random import randint
+from numpy import linspace, pi
 
 class Photon:
-    def __init__(self, screen, width: int, heigth: int, y_offset: int=0):
+    def __init__(self, screen, width: int, heigth: int):
         super().__init__()
         self.beginning = True
         self.end = False
@@ -15,17 +16,15 @@ class Photon:
         self.photon_x = self.width/2
         self.photon_y = 0
         self.photon_position_y = linspace(-pi/2, pi/2, 10)
-        self.random_y = y_offset
+        self.random_x = randint(-1, 2)
+        self.random_y = randint(-8, 8)
     
-    def draw_photon(self, inverse: bool=False):
+    def draw_photon(self):
         """
             Draws photons emmited by the electron when the speed is increased.
-                inverse = True: photon_x < 1
-                inverse = False: photon_x > 1
         """
         
-
-        self.photon_x, pos_y = self.photon_movement(inverse)
+        self.photon_x, pos_y = self.photon_movement()
         PHOTON_COLOR = (245, 184, 71)
         photon_position = (self.photon_x, pos_y)
         gamma_img = pg.image.load('ca2024/gui/img/gamma.png').convert()
@@ -40,7 +39,7 @@ class Photon:
 
         return pg.draw.circle(self.screen, PHOTON_COLOR, photon_position, 20), self.screen.blit(gamma_img, gamma_rect)
 
-    def photon_movement(self, inverse: bool=False):
+    def photon_movement(self):
         """
             Defines the way that the photons move.
         """
@@ -60,7 +59,7 @@ class Photon:
             self.beginning = True
             self.end = False
 
-        if inverse == False:
+        if self.random_x >= 1:
             self.photon_x += 4
         else:
             self.photon_x -= 4
@@ -68,3 +67,11 @@ class Photon:
         self.photon_y += self.random_y
 
         return self.photon_x, float(pos_y)
+    
+    def photon_loop(self, speed: float):
+        """
+            Creates a photon depending on the speed of the electron.
+        """
+
+        if speed >= 1:
+            self.draw_photon()
