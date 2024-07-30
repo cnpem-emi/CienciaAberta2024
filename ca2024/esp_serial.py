@@ -24,6 +24,14 @@ class ComPort:
             sleep(0.1)
             exit()
 
+    def select_mode(self, mode: int):
+        """
+            Selects between automatic and manual operation mode.
+        """
+
+        self.device.write(mode)
+        sleep(0.1)
+
     def get_serial_port(self):
         """
             Gets the serial port that the device is connected.

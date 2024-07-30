@@ -25,6 +25,7 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         self.laps = 1
         self.points = 0
         self.game_section = 0
+        self.game_mode = 0
 
         pg.init()
         pg.display.set_caption("Ciência Aberta 2024") # Window Name
@@ -48,17 +49,13 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         self.score_text = ''
 
         # Photons
-        # self.p1 = Photon(self.screen, self.width, self.heigth)
         self.photon_list = []
-        # for n_of_photons in range(0, randint(1, 10)):
-        #     p = Photon(self.screen, self.width, self.heigth)
-        #     self.photon_list.append(p)
 
         self.start_ticks = pg.time.get_ticks() # Initialize the countdown timer
 
         # USB conection control
-        #usb = ComPort()
-        #usb.config_serial()
+        usb = ComPort()
+        usb.config_serial()
 
     def loop(self):
         """

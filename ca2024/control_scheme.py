@@ -2,6 +2,9 @@ import pygame as pg
 from time import sleep
 
 class ControlScheme:
+    def __init__(self):
+        self.mode = 0
+
     def control_selection(self, game_section: int):
         """
             Selects the apropriate control settings for the game section.
@@ -27,13 +30,22 @@ class ControlScheme:
         key = pg.key.get_pressed()
 
         if key[pg.K_UP]:
+            self.mode = 1
             return 1
         if key[pg.K_DOWN]:
+            self.mode = 2
             return 2
         if key[pg.K_RETURN]:
-            # Call team name window
             # Send bit to microcontroller to select operation mode based on the position of the cursor
-            self.game_section = 1
+            if self.mode == 1:
+                # Send bit to ESP32
+                self.select_mode(1)
+                self.team_name = "AUTO\n"
+                self.game_section = 2
+            elif self.mode == 2:
+                # Send bit to ESP32
+                self.select_mode(2)
+                self.game_section = 1
             sleep(0.1)
         if key[pg.K_ESCAPE]:
             pg.quit()
@@ -47,6 +59,7 @@ class ControlScheme:
 
         if key[pg.K_ESCAPE]:
             # Go back to selection menu
+            self.mode = 0
             self.game_section = 0 # Return to main menu
             self.team_name = ''
             sleep(0.5)
@@ -68,5 +81,6 @@ class ControlScheme:
             self.team_name = self.team_name[:-1] # Delete last character
             sleep(0.05)
         if key[pg.K_ESCAPE]:
+            self.mode = 0
             self.game_section = 0 # Return to main menu
             sleep(0.5)
