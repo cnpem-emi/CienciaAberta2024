@@ -17,6 +17,7 @@ class ElectronSpeed {
 
     private:
         float distance = 0;
+        float delta_t = 0;
 
 };
 
