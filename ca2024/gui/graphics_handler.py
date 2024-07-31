@@ -90,7 +90,7 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
 
             # Game running
             elif self.game_section == 2:
-                #self.speed, self.laps = usb.read_serial()
+                self.speed, self.laps = usb.read_serial()
                 self.get_points(self.speed, self.laps)
                 self.get_velocity(self.speed)
                 electron_x, electron_y = self.electron_movement(self.speed)
@@ -110,8 +110,8 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
 
                 self.countdown()
 
-                if self.speed < 4:
-                    self.speed += 0.01
+                # if self.speed < 4:
+                #     self.speed += 0.01
 
             # Scoreboard
             elif self.game_section == 3:
