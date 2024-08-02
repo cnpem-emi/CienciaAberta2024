@@ -3,17 +3,18 @@
 #include "optical_sensor.hpp"
 #include "com_port.hpp"
 
+#define PULSE_WIDTH_MS 10
 extern ElectronSpeed velocity;
 
 ComPort serial;
 String json;
 
-OpticalSensor sensor1(SENSOR_1_PIN, SENSOR_1_OUTPUT, 20, AUTOMATIC_MODE);
-OpticalSensor sensor2(SENSOR_2_PIN, SENSOR_2_OUTPUT, 20, AUTOMATIC_MODE);
-OpticalSensor sensor3(SENSOR_3_PIN, SENSOR_3_OUTPUT, 20, AUTOMATIC_MODE);
-OpticalSensor sensor4(SENSOR_4_PIN, SENSOR_4_OUTPUT, 20, AUTOMATIC_MODE);
-OpticalSensor sensor5(SENSOR_5_PIN, SENSOR_5_OUTPUT, 20, AUTOMATIC_MODE);
-OpticalSensor sensor6(SENSOR_6_PIN, SENSOR_6_OUTPUT, 20, AUTOMATIC_MODE);
+OpticalSensor sensor1(SENSOR_1_PIN, SENSOR_1_OUTPUT, PULSE_WIDTH_MS, AUTOMATIC_MODE);
+OpticalSensor sensor2(SENSOR_2_PIN, SENSOR_2_OUTPUT, PULSE_WIDTH_MS, AUTOMATIC_MODE);
+OpticalSensor sensor3(SENSOR_3_PIN, SENSOR_3_OUTPUT, PULSE_WIDTH_MS, AUTOMATIC_MODE);
+OpticalSensor sensor4(SENSOR_4_PIN, SENSOR_4_OUTPUT, PULSE_WIDTH_MS, AUTOMATIC_MODE);
+OpticalSensor sensor5(SENSOR_5_PIN, SENSOR_5_OUTPUT, PULSE_WIDTH_MS, AUTOMATIC_MODE);
+OpticalSensor sensor6(SENSOR_6_PIN, SENSOR_6_OUTPUT, PULSE_WIDTH_MS, AUTOMATIC_MODE);
 
 ButtonControl btn(50);
 

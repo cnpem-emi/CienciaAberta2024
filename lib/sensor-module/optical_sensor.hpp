@@ -15,12 +15,12 @@
 #define SENSOR_5_PIN 13
 #define SENSOR_6_PIN 22
 
-#define SENSOR_1_OUTPUT 21
+#define SENSOR_1_OUTPUT 16 //21
 #define SENSOR_2_OUTPUT 19
 #define SENSOR_3_OUTPUT 18
 #define SENSOR_4_OUTPUT 5
 #define SENSOR_5_OUTPUT 17
-#define SENSOR_6_OUTPUT 16
+#define SENSOR_6_OUTPUT 21 //16
 
 class OpticalSensor {
     public:
