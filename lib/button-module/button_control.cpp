@@ -7,7 +7,7 @@ ButtonControl::ButtonControl(int pulse_width) {
 void ButtonControl::config() {
     for (int i = 0; i < numRow; i++) {
     pinMode(rowPin[i], OUTPUT);
-    digitalWrite(rowPin[i], LOW);
+    digitalWrite(rowPin[i], HIGH);
   }
 
   for (int i = 0; i < numCol; i++) {
