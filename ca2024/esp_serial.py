@@ -54,7 +54,7 @@ class ComPort:
         if message:
             try:
                 json_msg = json.loads(message)
-                return json_msg["speed"], json_msg["laps"]
+                return json_msg["speed"]
 
             except json.JSONDecodeError as e:
                 print(f'Error decoding JSON: {e}')

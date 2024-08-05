@@ -39,12 +39,12 @@ class ControlScheme:
             # Send bit to microcontroller to select operation mode based on the position of the cursor
             if self.mode == 1:
                 # Send bit to ESP32
-                self.select_mode(1)
+                #self.select_mode(1)
                 self.team_name = "AUTO\n"
                 self.game_section = 2
             elif self.mode == 2:
                 # Send bit to ESP32
-                self.select_mode(2)
+                #self.select_mode(2)
                 self.game_section = 1
             sleep(0.1)
         if key[pg.K_ESCAPE]:

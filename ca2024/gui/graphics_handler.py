@@ -22,7 +22,6 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         self.running = True
         self.time_limit = time_limit
         self.speed = 0
-        self.laps = 1
         self.points = 0
         self.game_section = 0
         self.game_mode = 0
@@ -54,8 +53,8 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         self.start_ticks = pg.time.get_ticks() # Initialize the countdown timer
 
         # USB conection control
-        usb = ComPort()
-        usb.config_serial()
+        self.usb = ComPort()
+        self.usb.config_serial()
 
     def loop(self):
         """
@@ -90,8 +89,8 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
 
             # Game running
             elif self.game_section == 2:
-                self.speed, self.laps = usb.read_serial()
-                self.get_points(self.speed, self.laps)
+                self.speed = self.usb.read_serial()
+                self.get_points(self.speed)
                 self.get_velocity(self.speed)
                 electron_x, electron_y = self.electron_movement(self.speed)
                 self.draw_electron(electron_x, electron_y)
@@ -163,7 +162,7 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
 
         return self.screen.blit(text, text_rect)
 
-    def get_points(self, speed: float, laps: int):
+    def get_points(self, speed: float):
         """
             Shows the team points on screen.
         """
@@ -171,7 +170,7 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         position = (5*self.width/6, self.heigth/5)
 
         # Calculate the points
-        points = 100*laps*speed
+        points = 100*speed
         points = int(points)
         self.points = points
 
@@ -191,7 +190,7 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         """
         
         chance_of_showing = randint(1, 50)
-        chance_of_showing += round(2*speed)
+        chance_of_showing += round(3*speed)
 
         if chance_of_showing > 50 and len(self.photon_list) < 30:
             p = Photon(self.screen, self.width, self.heigth)
