@@ -20,10 +20,6 @@ float ElectronSpeed::get_speed() {
 
     this->delta_t = (millis() - this->last_time)/1000;
     speed = this->distance/this->delta_t;
-    Serial.print("last_time: ");
-    Serial.println(this->last_time);
-    Serial.print("delta_t: ");
-    Serial.println(this->delta_t);
     this->delta_t = 0;
     this->last_time = 0;
     

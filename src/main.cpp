@@ -36,9 +36,9 @@ void setup () {
 }
 
 void loop() {
-  if (serial.send_data == false) {
-    serial.config();
-  } else {
+  // if (serial.send_data == false) {
+  //   serial.config();
+  // } else {
   // btn.readButtonMatrix();
     sensor1.loop();
     sensor2.loop();
@@ -51,7 +51,7 @@ void loop() {
         sensor4.measure_speed == true || sensor5.measure_speed == true || sensor6.measure_speed == true){
       serial.getInfo(velocity.get_speed());
       json = serial.sendInfo();
-      Serial.println(json);
+      Serial.println(json.c_str());
 
       sensor1.measure_speed = false;
       sensor2.measure_speed = false;
@@ -67,5 +67,5 @@ void loop() {
     GPIO.out_w1tc = (1 << SENSOR_4_OUTPUT);
     GPIO.out_w1tc = (1 << SENSOR_5_OUTPUT);
     GPIO.out_w1tc = (1 << SENSOR_6_OUTPUT);
-  }
+  // }
 }
