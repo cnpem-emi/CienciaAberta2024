@@ -16,13 +16,15 @@ class ComPort:
         
         self.device.write(data)
         sleep(0.1)
-        if self.device.in_waiting > 0:
-            confirmation = self.device.read()
-            print("Connected!")
-        else:
-            print("Can't connect to device!")
-            sleep(0.1)
-            exit()
+        while 1:
+            if self.device.in_waiting > 0:
+                confirmation = self.device.read()
+                #response = self.device.readline().decode('utf-8').strip()
+                print("Connected!")
+                break
+            else:
+                print("Can't connect to device!")
+                sleep(0.1)
 
     def select_mode(self, mode: int):
         """
@@ -49,14 +51,15 @@ class ComPort:
             Reads the data received from serial port.
         """
 
-        #message = self.device.readline().decode('utf-8').rstrip()
-        message = self.device.readline().rstrip()
+        while 1:
+            message = self.device.readline().decode('utf-8').rstrip()
 
-        if message:
-            try:
-                json_msg = json.loads(message)
-                return json_msg["speed"]
+            if message:
+                try:
+                    json_msg = json.loads(message)
+                    return json_msg["speed"]
+                    break
 
-            except json.JSONDecodeError as e:
-                print(f'Error decoding JSON: {e}')
+                except json.JSONDecodeError as e:
+                    print(f'Error decoding JSON: {e}')
 
