@@ -49,7 +49,8 @@ class ComPort:
             Reads the data received from serial port.
         """
 
-        message = self.device.readline().decode('utf-8').rstrip()
+        #message = self.device.readline().decode('utf-8').rstrip()
+        message = self.device.readline().rstrip()
 
         if message:
             try:
@@ -58,4 +59,4 @@ class ComPort:
 
             except json.JSONDecodeError as e:
                 print(f'Error decoding JSON: {e}')
-                exit()
+
