@@ -46,21 +46,18 @@ class ComPort:
         
         return device
         
-    def read_serial(self) -> dict:
+    def read_serial(self) -> float:
         """
             Reads the data received from serial port.
         """
 
-        message = self.device.readline().decode('utf-8').rstrip()
+        message = self.device.readline() #.decode('utf-8').rstrip()
+        return float(message)
+        # while 1:
+        #     if message == 0:
+        #         try:
+                    
 
-        while 1:
-            if message:
-                try:
-                    # json_msg = json.loads(message)
-                    # return json_msg["speed"]
-                    return float(message)
-                    break
-
-                except json.JSONDecodeError as e:
-                    print(f'Error decoding JSON: {e}')
+        #         except:
+        #             print("Error decoding data!")
 
