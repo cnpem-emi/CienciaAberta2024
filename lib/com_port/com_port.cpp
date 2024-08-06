@@ -17,5 +17,5 @@ void ComPort::sendInfo() {
     // delay(1);
     // serializeJson(doc, Serial);
     // return doc.as<String>();
-    serializeJson(this->doc, Serial);
+    Serial.println(doc["speed"].as<float>());
 }
