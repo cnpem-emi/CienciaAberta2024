@@ -20,9 +20,13 @@ OpticalSensor::OpticalSensor(int sensor_pin, int sensor_output, int pulse_width,
 void OpticalSensor::loop() {
 
     if(mode == MANUAL_MODE && digitalRead(sensor_pin) == HIGH) {
-        // velocity.get_time(sensor_pin);
-        delay(this->pulse_width);
-        GPIO.out_w1tc = (1 << this->sensor_output);
+        if (velocity.last_sensor_id != sensor_pin && velocity.last_time != 0) {
+            this->measure_speed = true;
+            velocity.last_sensor_id = this->sensor_pin;
+        }
+        if (this->measure_speed != true) {
+            velocity.get_time(sensor_pin);
+            }
     }
 
     if(mode == AUTOMATIC_MODE && digitalRead(sensor_pin) == HIGH) {

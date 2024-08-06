@@ -51,16 +51,16 @@ void ButtonControl::readButtonMatrix() {
 
           // Só age se o novo estado for HIGH (botão pressionado)
           if (buttonStates[row][col] == HIGH) {
-            Serial.print("Button [");
-            Serial.print(row);
-            Serial.print("][");
-            Serial.print(col);
-            Serial.println("] pressed");
+            // Serial.print("Button [");
+            // Serial.print(row);
+            // Serial.print("][");
+            // Serial.print(col);
+            // Serial.println("] pressed");
 
             // Calcula o índice do pino de pulso correspondente
             int pulsePinIndex = row * numCol + col;
             pulseGenerator(pulsePin[pulsePinIndex]);
-            Serial.println("Pulso Gerado");
+            // Serial.println("Pulso Gerado");
           }
         }
       }
