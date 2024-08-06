@@ -51,9 +51,9 @@ class ComPort:
             Reads the data received from serial port.
         """
 
-        while 1:
-            message = self.device.readline().decode('utf-8').rstrip()
+        message = self.device.readline().decode('utf-8').rstrip()
 
+        while 1:
             if message:
                 try:
                     json_msg = json.loads(message)

@@ -172,6 +172,9 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
 
         position = (5*self.width/6, self.heigth/5)
 
+        if speed == None:
+            speed = 0
+
         # Calculate the points
         points = 100*speed
         points = int(points)

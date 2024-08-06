@@ -39,6 +39,9 @@ class Electron():
         pos_x = self.width/2
         pos_y = self.heigth/2
 
+        if speed == None:
+            speed = 0
+
         if speed > 5:
             speed = 5
         amplitude = (1+2*speed)*10 # Verify the optimal amplitude
