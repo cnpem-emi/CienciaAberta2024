@@ -41,10 +41,10 @@ void setup () {
 }
 
 void loop() {
-  // if (serial.send_data == false) {
-  //   serial.config();
-  // } else {
-  btn.readButtonMatrix();
+  if (serial.send_data == false) {
+    serial.config();
+  } else {
+    btn.readButtonMatrix();
     sensor1.loop();
     sensor2.loop();
     sensor3.loop();
@@ -74,4 +74,5 @@ void loop() {
       GPIO.out_w1tc = (1 << SENSOR_5_OUTPUT);
       GPIO.out_w1tc = (1 << SENSOR_6_OUTPUT);
       }
+  }
 }
