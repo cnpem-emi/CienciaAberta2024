@@ -153,6 +153,9 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
 
         position = (self.width/2, 4*self.heigth/5)
 
+        if velocity == None:
+            velocity = 0
+            
         velocity = str(round(velocity, 1)) + " m/s"
 
         self.font = pg.font.Font("ca2024/gui/fonts/ARCADEPI.TTF", 40)
