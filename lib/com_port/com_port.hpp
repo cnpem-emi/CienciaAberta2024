@@ -12,7 +12,7 @@ class ComPort {
 
         void getInfo(float speed);
 
-        String sendInfo();
+        void sendInfo();
 
     private:
         float speed = 0;

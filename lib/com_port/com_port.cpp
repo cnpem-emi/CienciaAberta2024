@@ -13,7 +13,9 @@ void ComPort::getInfo(float speed) {
     doc["speed"] = speed;
 }
 
-String ComPort::sendInfo() {
-    delay(1);
-    return doc.as<String>();
+void ComPort::sendInfo() {
+    // delay(1);
+    // serializeJson(doc, Serial);
+    // return doc.as<String>();
+    serializeJson(this->doc, Serial);
 }

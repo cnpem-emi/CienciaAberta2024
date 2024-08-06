@@ -55,8 +55,9 @@ void loop() {
     if (sensor1.measure_speed == true || sensor2.measure_speed == true || sensor3.measure_speed == true ||
         sensor4.measure_speed == true || sensor5.measure_speed == true || sensor6.measure_speed == true){
       serial.getInfo(velocity.get_speed());
-      json = serial.sendInfo();
-      Serial.println(json.c_str());
+      // json = serial.sendInfo();
+      // Serial.println(json.c_str());
+      serial.sendInfo();
 
       sensor1.measure_speed = false;
       sensor2.measure_speed = false;
