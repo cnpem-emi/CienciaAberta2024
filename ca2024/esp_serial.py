@@ -56,8 +56,9 @@ class ComPort:
         while 1:
             if message:
                 try:
-                    json_msg = json.loads(message)
-                    return json_msg["speed"]
+                    # json_msg = json.loads(message)
+                    # return json_msg["speed"]
+                    return float(message)
                     break
 
                 except json.JSONDecodeError as e:
