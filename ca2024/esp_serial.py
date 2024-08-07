@@ -52,8 +52,9 @@ class ComPort:
         """
 
         while 1:
-            message = self.device.readline().decode('utf-8').rstrip()
+            message = self.device.readline().decode('utf-8')
             print(message)
+            print(message[1:-3])
             
             if message[0] == "#" and message[-1] == "$":
                 return float(message)
