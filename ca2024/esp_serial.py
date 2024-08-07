@@ -50,9 +50,12 @@ class ComPort:
         """
             Reads the data received from serial port.
         """
-
-        message = self.device.readline() #.decode('utf-8').rstrip()
-        return float(message)
+        while 1:
+            message = self.device.readline() #.decode('utf-8').rstrip()
+            print(message)
+            
+            if message[0] == "#" and message[-1] == "$":
+                return float(message)
         # while 1:
         #     if message == 0:
         #         try:
