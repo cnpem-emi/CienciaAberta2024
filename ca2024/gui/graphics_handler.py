@@ -55,6 +55,7 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
         # USB conection control
         self.usb = ComPort()
         self.usb.config_serial()
+        self.usb.start_reading()
 
     def loop(self):
         """
@@ -89,7 +90,10 @@ class GraphicalViewHandler(Electron, MenuScreen, ScoreBoard, ControlScheme):
 
             # Game running
             elif self.game_section == 2:
-                self.speed = self.usb.read_serial()
+                # self.speed = self.usb.read_serial()
+                if self.usb.value is not None:
+                    self.speed = self.usb.read_serial()
+                
                 self.get_points(self.speed)
                 self.get_velocity(self.speed)
                 electron_x, electron_y = self.electron_movement(self.speed)

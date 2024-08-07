@@ -1,10 +1,14 @@
 import serial
 import json
+import threading
 from time import sleep
 
 class ComPort:
     def __init__(self):
         self.device = self.get_serial_port()
+        self.reading = False
+        self.value = None
+        self.thread = None
 
     def config_serial(self):
         """
@@ -54,6 +58,26 @@ class ComPort:
         while 1:
             message = self.device.readline().decode('utf-8')
             message = message[1:-3]
+
+            self.value = float(message)
             
-            return float(message)
+            return self.value
+
+    def start_reading(self):
+        """
+        Starts reading serial data in a separate thread.
+        """
+
+        self.thread = threading.Thread(target=self.read_serial)
+        self.thread.start()
+
+    def stop_reading(self):
+        """
+        Stops reading serial data.
+        """
+
+        self.reading = False
+        
+        if self.thread is not None:
+            self.thread.join()
 
